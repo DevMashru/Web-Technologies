@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Welcome</title>
+	<script crossdomain src="https://unpkg.com/react@16/umd/react.development.js"> </script> 
+	<script crossdomain src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"> </script> 
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"> </script>
+</head>
+<body>
+	<div id = "container">
+	</div>
+</body>
+<script type = "text/babel">
+	var container = document.querySelector("#container");
+
+	function Fetch(){
+		var d = []
+		return fetch('/api/top', {
+			method: 'POST'
+		}).then((response) => response.json());
+	}
+	class Top1 extends React.Component {
+		constructor(props){
+			super(props);
+			this.state = {
+				d : [],
+				li: [],
+			};
+		}
+
+		componentDidMount(){
+			Fetch()
+			.then((d) => {
+				this.setState({ d:d })
+				var li;
+				var name = [],price = [];
+				li = this.state.d.map((d,i)=>{
+				for (let i = 0; i < this.state.d.length; i++) {
+					name[i] = this.state.d[i].name;
+					price[i] = this.state.d[i].price;
+				}
+				return(
+					<tr key = {i}>
+						<td>{name[i]}</td>
+						<td>{price[i]}</td>
+					</tr>
+				);
+			});
+			this.setState({ li:li })
+			});
+		}
+		render() {
+			return ( 
+				<table>
+					<tbody>
+					<tr>
+						<th>Name</th>
+						<th>Price</th>
+					</tr>
+					</tbody>
+					<tbody>{this.state.li}</tbody>
+				</table>
+			);
+		}
+	}
+
+	ReactDOM.render(
+		<Top1/>,
+		container
+	);
+</script>
+</html>
