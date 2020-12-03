@@ -35,16 +35,22 @@
 			.then((d) => {
 				this.setState({ d:d })
 				var li;
-				var name = [],price = [];
+				var name = [], price = [], lowestprice = [], highestprice = [], link = [];
 				li = this.state.d.map((d,i)=>{
 				for (let i = 0; i < this.state.d.length; i++) {
 					name[i] = this.state.d[i].name;
 					price[i] = this.state.d[i].price;
+					lowestprice[i] = this.state.d[i].lowestprice;
+					highestprice[i] = this.state.d[i].highestprice;
+					link[i] = this.state.d[i].link;
 				}
 				return(
 					<tr key = {i}>
 						<td>{name[i]}</td>
 						<td>{price[i]}</td>
+						<td>{lowestprice[i]}</td>
+						<td>{highestprice[i]}</td>
+						<td>{link[i]}</td>
 					</tr>
 				);
 			});
@@ -58,6 +64,9 @@
 					<tr>
 						<th>Name</th>
 						<th>Price</th>
+						<th>Lowest Price</th>
+						<th>Highest Price</th>
+						<th>Link</th>
 					</tr>
 					</tbody>
 					<tbody>{this.state.li}</tbody>
