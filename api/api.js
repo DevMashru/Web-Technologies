@@ -32,6 +32,7 @@ router.post('/api/top', (req, res) => {
 				}
 				if (d.length === r.length) {
 					fill(d,res)
+					mongoose.disconnect();
 				}
 			});
 		});
