@@ -35,24 +35,56 @@
 			.then((d) => {
 				this.setState({ d:d })
 				var li;
-				var name = [], price = [], lowestprice = [], highestprice = [], link = [];
+				var name = [], Aprice = [], Fprice = [], lowestprice = [], highestprice = [], Alink = [], Flink = [];
 				li = this.state.d.map((d,i)=>{
 				for (let i = 0; i < this.state.d.length; i++) {
 					name[i] = this.state.d[i].name;
-					price[i] = this.state.d[i].price;
+					Aprice[i] = this.state.d[i].Aprice;
+					Fprice[i] = this.state.d[i].Fprice;
 					lowestprice[i] = this.state.d[i].lowestprice;
 					highestprice[i] = this.state.d[i].highestprice;
-					link[i] = this.state.d[i].link;
+					Alink[i] = this.state.d[i].Alink;
+					Flink[i] = this.state.d[i].Flink;
 				}
-				return(
-					<tr key = {i}>
-						<td>{name[i]}</td>
-						<td>{price[i]}</td>
-						<td>{lowestprice[i]}</td>
-						<td>{highestprice[i]}</td>
-						<td><a href = {link[i]}>link</a></td>
-					</tr>
-				);
+				if(Alink[i] && Flink[i]){
+					return(
+						<tr key = {i}>
+							<td>{name[i]}</td>
+							<td>{Aprice[i]}</td>
+							<td>{Fprice[i]}</td>
+							<td>{lowestprice[i]}</td>
+							<td>{highestprice[i]}</td>
+							<td><a href = {Alink[i]}>link</a></td>
+							<td><a href = {Flink[i]}>link</a></td>
+						</tr>
+					);
+				}
+				else if(Alink[i]){
+					return(
+						<tr key = {i}>
+							<td>{name[i]}</td>
+							<td>{Aprice[i]}</td>
+							<td>{Fprice[i]}</td>
+							<td>{lowestprice[i]}</td>
+							<td>{highestprice[i]}</td>
+							<td><a href = {Alink[i]}>link</a></td>
+							<td>N/A</td>
+						</tr>
+					);
+				}
+				else if(Flink[i]){
+					return(
+						<tr key = {i}>
+							<td>{name[i]}</td>
+							<td>{Aprice[i]}</td>
+							<td>{Fprice[i]}</td>
+							<td>{lowestprice[i]}</td>
+							<td>{highestprice[i]}</td>
+							<td>N/A</td>
+							<td><a href = {Flink[i]}>link</a></td>
+						</tr>
+					);
+				}
 			});
 			this.setState({ li:li })
 			});
@@ -63,10 +95,12 @@
 					<tbody>
 					<tr>
 						<th>Name</th>
-						<th>Price</th>
-						<th>Lowest Price</th>
-						<th>Highest Price</th>
-						<th>Link</th>
+						<th>Amazon Price</th>
+						<th>Flipkart Price</th>
+						<th>Lowest Price since 3/12/'20</th>
+						<th>Highest Price since 3/12/'20</th>
+						<th>Amazon Link</th>
+						<th>Flipkart Link</th>
 					</tr>
 					</tbody>
 					<tbody>{this.state.li}</tbody>
