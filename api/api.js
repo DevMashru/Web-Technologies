@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const qs = require('querystring');
 
 const app = express();
 const router = express.Router()
@@ -24,7 +25,7 @@ router.post('/api/top', (req, res) => {
 				if(err) throw err;
 				re.items.forEach(item => {
 					r.forEach(obj => {
-						if(item === obj.Name){
+						if(item.name === obj.Name){
 							if (obj.Amazon && obj.Flipkart) {
 								if(obj.Amazon.lowestprice < obj.Flipkart.lowestprice){
 									lowestprice = obj.Amazon.lowestprice;
@@ -57,6 +58,40 @@ router.post('/api/top', (req, res) => {
 						}
 					});
 				});
+			});
+		});
+	});
+});
+
+router.post('/api/add', (req, res) => {
+	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
+	const db = mongoose.connection;
+	var body = []
+	req.on('data', function(chunk){
+		body.push(chunk)
+	})
+	req.on('end', function(){
+		body = Buffer.concat(body).toString()
+		var query = qs.parse(body);
+		amazon = query.alink;
+		flipkart = query.flink;
+		db.once('open', () => {
+			db.collection('userdata').findOneAndUpdate({username: req.cookies.uname}, {$push: {items: {name: query.name, minimumprice: query.minimum}}});
+			db.collection('top').findOne({Name: query.name}, (err,r) => {
+				if(err) throw err;
+				if(!r){
+					if(amazon && flipkart){
+						db.collection('top').insertOne({Name: query.name, Amazon: {link: amazon, price:[]}, Flipkart: {link: flipkart, price:[]}});
+					}
+					else if(amazon){
+						db.collection('top').insertOne({Name: query.name, Amazon: {link: amazon, price:[]}});
+					}
+					else if(flipkart){
+						db.collection('top').insertOne({Name: query.name, Flipkart: {link: flipkart, price:[]}});
+					}
+				}
+				res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST');
+				return res.send(200);
 			});
 		});
 	});

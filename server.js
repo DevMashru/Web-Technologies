@@ -11,6 +11,10 @@ app.post('/api/top',api, (req, res, next) => {
 	next();
 });
 
+app.post('/api/add',api, (req, res, next) => {
+	next();
+});
+
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
 
