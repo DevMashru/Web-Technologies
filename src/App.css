@@ -1,0 +1,15 @@
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.link {
+  margin-right: 10px;
+}
+
+.router{
+  text-align: right;
+}
