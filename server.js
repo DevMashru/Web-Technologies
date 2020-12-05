@@ -5,11 +5,11 @@ var cookieParser = require('cookie-parser');
 
 const app = express();
 
-app.use(express.static('static'))
-
 const api = require('./api/api');
 
-app.post('/api/top',api);
+app.post('/api/top',api, (req, res, next) => {
+	next();
+});
 
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
