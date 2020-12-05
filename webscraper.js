@@ -36,11 +36,17 @@ function amazon(Amazon){
 			price = $('#priceblock_ourprice').text();
 		}
 		var strippedPrice = price.replace('₹', '').replace(',', '');
-		if(strippedPrice > Amazon.highestprice)
-			highest("Amazon", strippedPrice, Amazon.link);
-		else if(strippedPrice < Amazon.lowestprice)
+		insert("Amazon", strippedPrice, Amazon.link);
+		if(!Amazon.highestprice){
+			highest("Amazon", strippedPrice, Amazon.link)
 			lowest("Amazon", strippedPrice, Amazon.link);
-			insert("Amazon", strippedPrice, Amazon.link);
+		}
+		else{
+			if(strippedPrice > Amazon.highestprice)
+				highest("Amazon", strippedPrice, Amazon.link);
+			else if(strippedPrice < Amazon.lowestprice)
+				lowest("Amazon", strippedPrice, Amazon.link);
+		}
 	})
 }
 
@@ -50,11 +56,17 @@ function flipkart(Flipkart){
 		const $ = cheerio.load(body);
 		var price = $('div._30jeq3._16Jk6d').text();
 		var strippedPrice = price.replace('₹', '').replace(',', '');
-		if(strippedPrice > Flipkart.highestprice)
-			highest("Flipkart", strippedPrice, Flipkart.link);
-		else if(strippedPrice < Flipkart.lowestprice)
+		insert("Flipkart", strippedPrice, Flipkart.link);
+		if(!Flipkart.highestprice){
+			highest("Flipkart", strippedPrice, Flipkart.link)
 			lowest("Flipkart", strippedPrice, Flipkart.link);
-			insert("Flipkart", strippedPrice, Flipkart.link);
+		}
+		else{
+			if(strippedPrice > Flipkart.highestprice)
+				highest("Flipkart", strippedPrice, Flipkart.link);
+			else if(strippedPrice < Flipkart.lowestprice)
+				lowest("Flipkart", strippedPrice, Flipkart.link);
+		}
 	})
 }
 
