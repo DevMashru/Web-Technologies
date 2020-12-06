@@ -6,6 +6,11 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
+  devServer: {
+    compress: true,
+    historyApiFallback: true,
+    disableHostCheck: true
+    },
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     alias: {
