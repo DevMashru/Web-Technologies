@@ -30,7 +30,6 @@ class App extends React.Component{
 	})
 		.then((response) => response.json())
 			.then((data) => {
-				console.log(data)
 				this.setState({username: data.uname})
 			})
 	}
@@ -42,9 +41,7 @@ class App extends React.Component{
 		credentials: 'include'
 	})
 		.then((response) => {
-			console.log(response)
 			this.setState({username: "none"})
-			console.log('Logged out')
 			window.location.href = "http://localhost:3000"
 		})
   }

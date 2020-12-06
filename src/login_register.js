@@ -16,7 +16,6 @@ class Login extends React.Component{
     }
     onSubmitHandler = (ev) => {
         ev.preventDefault();
-        console.log("in login")
         var requery = "username=" + this.state.username + '&password=' + this.state.password
         fetch("http://localhost:8080/login", {
             method: 'POST',
@@ -26,7 +25,6 @@ class Login extends React.Component{
         })
             .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
                     if(data.msg === 'username not found')
                         window.alert("Username not found")
                     else if(data.msg === 'wrong password')
@@ -70,7 +68,6 @@ class Register extends React.Component{
     }
     onSubmitHandler = (ev) => {
         ev.preventDefault();
-        console.log("in register")
         if(this.state.next === 0){
             this.setState({next: 1});
             return;
@@ -93,9 +90,6 @@ class Register extends React.Component{
                 }
                 else if(response.status === 404)
                     window.alert("Username already taken")
-            })
-            .catch((response) => {
-                console.log(response)
             })
     }
     email = (ev) => {
@@ -133,11 +127,9 @@ class LoginRegister extends React.Component{
         super(props)
     }
     handleLogin = (username) => {
-        console.log("login handled")
         this.props.onLoginRegister(username)
     }
     handleRegister = (username) => {
-        console.log("register handled")
         this.props.onLoginRegister(username)
     }
     render(){

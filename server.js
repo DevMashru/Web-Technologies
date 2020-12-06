@@ -26,51 +26,41 @@ app.delete('/api/deleteItem',api, (req, res, next) => {
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
 
-app.use(function(req, res, next){
-	console.log("============================")
-	console.log(req.url, req.method);
-	next();
-})
-
-app.get('/getcookie', function(req, res, next){
-	console.log("in /getcookie")
+app.get('/getcookie', function(req, res){
 	if(req.cookies.uname){
-		console.log(req.cookies.uname)
 		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", req.cookies.uname, {httpOnly: false}).status(200).send(JSON.stringify({uname: req.cookies.uname}))
 	}
 	else{
 		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(200).send(JSON.stringify({uname: "none"}))
 	}
 	res.end();
-	next();
 })
 
 app.get('/logout', function(req, res){
-	console.log("in /logout")
 	res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(200).send("logged out")
 	res.end()
 })
 
-app.post('/register', function(req, res, next){
+app.post('/register', function(req, res){
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		console.log('body is ' + body)
 		var query = qs.parse(body);
 		query.items = [];
-		console.log('query is ' + JSON.stringify(query))
 		MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, function(err, client){
 			if(err){
-				window.alert("Trouble connecting to database. Please try again sometime later");
+				console.log(err)
+				res.status(404).end()
 			}
 			else{
 				var db = client.db('project');
 				db.collection('userdata').findOne({username: query.username}, function(err, result){
 					if(err){
-						window.alert("Trouble accessing database. Please try again sometime later.")
+						console.log(err)
+						res.status(404).end()
 					}
 					else{
 						var msg;
@@ -78,13 +68,11 @@ app.post('/register', function(req, res, next){
 							db.collection('userdata').insertOne(query, function(err){
 								if(err){
 									console.log(err)
+									res.status(404).end()
 								}
 								else{
-									console.log('in db.insert')
 									msg = JSON.stringify({msg: 'registered'})
 									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
-									console.log("header set")
-									console.log('cookie set')
 									res.end()
 								}
 							})
@@ -99,27 +87,27 @@ app.post('/register', function(req, res, next){
 			}
 		})
 	})
-	next();
 })
 
-app.post('/login', function(req, res, next){
+app.post('/login', function(req, res){
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		console.log('body is ' + body)
 		var query = qs.parse(body);
 		MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, function(err, client){
 			if(err){
-				window.alert("Trouble connecting to database. Please try again sometime later");
+				console.log(err)
+				res.status(404).end()
 			}
 			else{
 				var db = client.db('project');
 				db.collection('userdata').findOne({username: query.username}, function(err, result){
 					if(err){
-						window.alert("Trouble accessing database. Please try again sometime later.")
+						console.log(err)
+						res.status(404).end()
 					}
 					else{
 						var msg;
@@ -132,7 +120,6 @@ app.post('/login', function(req, res, next){
 							if(query.password === result.password){
 								msg = JSON.stringify({msg: 'authenticate'})
 								res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
-								console.log("sent " + msg)
 								res.end()
 							}
 							else{
@@ -146,22 +133,19 @@ app.post('/login', function(req, res, next){
 			}
 		})
 	})
-	next();
 })
 
-app.options('/changepwd', function(req, res, next){
+app.options('/changepwd', function(req, res){
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		console.log('body is ' + body)
 		var query = qs.parse(body);
 		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'PUT').cookie("uname", query.username, {httpOnly: false}).status(200).send(JSON.stringify({msg: "send put request"}))
 		res.end()
 	})
-	next();
 })
 
 app.options('/delacc', function(req, res){
@@ -171,35 +155,34 @@ app.options('/delacc', function(req, res){
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		console.log('body is ' + body)
 		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", "none", {httpOnly: false}).status(200).send(JSON.stringify({msg: "send delete request"}))
 		res.end()
 	})
 })
 
-app.put('/changepwd', function(req, res, next){
+app.put('/changepwd', function(req, res){
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		console.log('body is ' + body)
 		var query = qs.parse(body);
 		var username = req.cookies.uname
 		MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, function(err, client){
 			if(err){
-				window.alert("Trouble connecting to database. Please try again sometime later");
+				console.log(err)
+				res.status(404).end()
 			}
 			else{
 				var db = client.db('project');
 				db.collection('userdata').findOne({username: username}, function(err, result){
 					if(err){
-						window.alert("Trouble accessing database. Please try again sometime later.")
+						console.log(err);
+						res.status(404).end()
 					}
 					else{
 						var msg;
-						console.log("Result is " + JSON.stringify(result))
 						if(result.password !== query.oldpassword){
 							msg = JSON.stringify({msg: 'incorrect existing password'})
 							res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'PUT').status(200).send(msg)
@@ -225,47 +208,38 @@ app.put('/changepwd', function(req, res, next){
 			}
 		})
 	})
-	next()
 })
 
-app.delete('/delacc', function(req, res, next){
+app.delete('/delacc', function(req, res){
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		console.log("body is " + body)
 		var query = qs.parse(body)
 		MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, function(err, client){
 			if(err){
-				res.send(err)
-				res.end()
+				console.log(err)
+				res.status(404).end()
 			}
 			else{
 				var db = client.db('project')
 				db.collection('userdata').deleteOne({username: query.username}, function(err){
 					if(err){
-						res.send(err)
-						res.end()
+						console.log(err)
+						res.status(404).end()
 					}
 					else{
 						var msg = JSON.stringify({msg: 'deleted'})
 						res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", "none", {httpOnly: false}).status(200).send(msg)
-						console.log("deleted " + query.username)
 						res.end()
 					}
 				})
 			}
 		})
 	})
-	next()
 })
-
-app.use(function(req, res){
-	console.log("Cookies are: " + JSON.stringify(req.cookies))
-})
-
 
 app.listen(8080, () => {
 	console.log("Server up and running on localhost:8080");

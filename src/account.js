@@ -24,7 +24,6 @@ class ChangePwd extends React.Component{
             var c = window.confirm("Are you sure you want to change your password?");
             if(c){
                 var requery = 'username=' + this.props.username + '&oldpassword=' + this.state.oldpassword + '&newpassword=' + this.state.newpassword
-                console.log("sending request")
                 fetch("http://localhost:8080/changepwd", {
                     method: 'PUT',
                     mode: 'cors',
@@ -32,7 +31,6 @@ class ChangePwd extends React.Component{
                     body: requery
                 })
                     .then((response) => {
-                        console.log("in put.then")
                         console.log(response.body)
                     })
             }
@@ -67,8 +65,6 @@ class DeleteAccount extends React.Component{
                 body: requery
             })
                 .then((response) => {
-                    console.log("in delete.then")
-                    console.log(response)
                     window.location.href = "http://localhost:3000/"
                 })
         }
