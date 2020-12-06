@@ -21,6 +21,7 @@ function fill(d,res){
 
 router.post('/api/top', (req, res) => {
 	var d = []
+	mongoose.disconnect()
 	const db = getDB();
 	var lowestprice, highestprice;
 	db.once('open', () => {
@@ -69,6 +70,7 @@ router.post('/api/top', (req, res) => {
 });
 
 router.post('/api/add', (req, res) => {
+	mongoose.disconnect();
 	const db = getDB();
 	var body = []
 	req.on('data', function(chunk){
@@ -110,6 +112,7 @@ router.options('/api/deleteItem', (req, res, next) => {
 });
 
 router.delete('/api/deleteItem', (req, res) => {
+	mongoose.disconnect();
 	const db = getDB();
 	var body = []
 	req.on('data', function(chunk){
