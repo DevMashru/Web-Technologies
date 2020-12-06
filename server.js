@@ -15,6 +15,14 @@ app.post('/api/add',api, (req, res, next) => {
 	next();
 });
 
+app.options('/api/deleteItem',api, (req, res, next) => {
+	next();
+});
+
+app.delete('/api/deleteItem',api, (req, res, next) => {
+	next();
+});
+
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
 

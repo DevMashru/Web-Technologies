@@ -97,4 +97,30 @@ router.post('/api/add', (req, res) => {
 	});
 });
 
+router.options('/api/deleteItem', (req, res, next) => {
+	req.on('data', () => {})
+	req.on('end', () => {
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", req.cookies.uname, {httpOnly: false})//.status(200).send(JSON.stringify({msg: "send delete request"}))
+		res.end()
+	})
+});
+
+router.delete('/api/deleteItem', (req, res) => {
+	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
+	const db = mongoose.connection;
+	var body = []
+	req.on('data', function(chunk){
+		body.push(chunk)
+	});
+	req.on('end', function(){
+		body = Buffer.concat(body).toString()
+		var query = qs.parse(body);
+		db.once('open' ,() => {
+			db.collection('userdata').updateOne({username: req.cookies.uname}, {$pull: { items: {name: body } }})
+		});
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE');
+		return res.send(200);
+	});
+});
+
 module.exports = router;

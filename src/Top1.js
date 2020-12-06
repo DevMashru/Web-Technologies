@@ -16,6 +16,15 @@ class Top1 extends React.Component {
 			li: [],
 		};
 	}
+	
+	deleteItem = (name) => {
+		return fetch('http://localhost:8080/api/deleteItem', {
+		method: 'DELETE',
+		mode: 'cors',
+		credentials: 'include',
+		body: name
+		});
+	}
 
 	componentDidMount(){
 		Fetch()
@@ -43,6 +52,7 @@ class Top1 extends React.Component {
 						<td>{highestprice[i]}</td>
 						<td><a target = '_blank' href = {Alink[i]}>link</a></td>
 						<td><a target = '_blank' href = {Flink[i]}>link</a></td>
+						<td onClick = {() => {this.deleteItem(name[i])}}><a href='#'>Stop tracking</a></td>
 					</tr>
 				);
 			}
@@ -56,6 +66,7 @@ class Top1 extends React.Component {
 						<td>{highestprice[i]}</td>
 						<td><a target = '_blank' href = {Alink[i]}>link</a></td>
 						<td>N/A</td>
+						<td onClick = {() => {this.deleteItem(name[i])}}><a href='#'>Stop tracking</a></td>
 					</tr>
 				);
 			}
@@ -69,6 +80,7 @@ class Top1 extends React.Component {
 						<td>{highestprice[i]}</td>
 						<td>N/A</td>
 						<td><a target = '_blank' href = {Flink[i]}>link</a></td>
+						<td onClick = {() => {this.deleteItem(name[i])}}><a href='#'>Stop tracking</a></td>
 					</tr>
 				);
 			}
@@ -88,6 +100,7 @@ class Top1 extends React.Component {
 					<th>Highest Price since 3/12/'20</th>
 					<th>Amazon Link</th>
 					<th>Flipkart Link</th>
+					<th>Stop tracking</th>
 				</tr>
 				</tbody>
 				<tbody>{this.state.li}</tbody>
