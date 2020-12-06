@@ -40,12 +40,14 @@ class ChangePwd extends React.Component{
     }
     render(){
         return(
-            <form>
-                <input type="password" name="oldpassword" onChange = {this.changeHandler} placeholder = "Enter your existing password" /><br/>
-                <input type="password" name="newpassword" onChange = {this.changeHandler} placeholder = "Enter your new password" /><br/>
-                <input type="password" name="confnewpassword" onChange = {this.changeHandler} placeholder = "Enter your new password again" /><br/>
-                <button type="submit" onClick = {this.submitHandler}>Submit</button>
-            </form>
+            <div id = "changepwd" className = "component">
+                <form>
+                    <input type="password" name="oldpassword" onChange = {this.changeHandler} placeholder = "Enter your existing password" /><br/>
+                    <input type="password" name="newpassword" onChange = {this.changeHandler} placeholder = "Enter your new password" /><br/>
+                    <input type="password" name="confnewpassword" onChange = {this.changeHandler} placeholder = "Enter your new password again" /><br/>
+                    <button type="submit" onClick = {this.submitHandler}>Submit</button>
+                </form>
+            </div>
         )
     }
 }
@@ -73,7 +75,7 @@ class DeleteAccount extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div id = "delacc" className = "component">
                 <button type="button" onClick = {this.submitHandler}>Confirm</button><br/>
             </div>
         )
@@ -92,9 +94,10 @@ class Account extends React.Component{
     }
     render(){
         return(
-            <div className = "App">
-                <h1 id = "username">Username</h1>
+            <div className = "component" id = "account">
+                <h1 id = "username">{this.props.username}</h1>
                 <img src="./user.png" height="200px" width = "200px" alt="User Profile Pic"></img><br/>
+                <button type = "button" onClick = {this.logoutHandler}>Logout</button><br/>
                 <Router className = "router">
                     <Link to='/account/changepwd' id="changepwd" className="link">Change Password</Link><br/>
                     <Route  path = '/account/changepwd' component = {() => {return <ChangePwd username={this.props.username} />}}></Route>
@@ -103,7 +106,6 @@ class Account extends React.Component{
                     <Link to='/account/delacc' id="delacc" className="link">Delete Account</Link><br/>
                     <Route exact path = '/account/delacc' component = {() => {return <DeleteAccount username={this.props.username} />}}></Route>
                 </Router>
-                <button type = "button" onClick = {this.logoutHandler}>Logout</button>
             </div>
         )
     }

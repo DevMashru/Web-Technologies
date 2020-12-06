@@ -3,7 +3,7 @@ import React from 'react';
 class AboutUs extends React.Component{
     render(){
         return(
-            <div>
+            <div id = "about_us" className = "component">
                 <h1>About Us</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id imperdiet sapien. Fusce pharetra 
                     nisl nec sodales auctor. Proin et porta massa. Aliquam erat volutpat. Ut gravida posuere mi a 

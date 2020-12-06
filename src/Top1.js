@@ -89,22 +89,24 @@ class Top1 extends React.Component {
 		});
 	}
 	render() {
-		return ( 
-			<table>
-				<tbody>
-				<tr>
-					<th>Name</th>
-					<th>Amazon Price</th>
-					<th>Flipkart Price</th>
-					<th>Lowest Price since 3/12/'20</th>
-					<th>Highest Price since 3/12/'20</th>
-					<th>Amazon Link</th>
-					<th>Flipkart Link</th>
-					<th>Stop tracking</th>
-				</tr>
-				</tbody>
-				<tbody>{this.state.li}</tbody>
-			</table>
+		return (
+			<div id = "itemlist" className = "component">
+				<table>
+					<tbody>
+					<tr>
+						<th>Name</th>
+						<th>Amazon Price</th>
+						<th>Flipkart Price</th>
+						<th>Lowest Price since 3/12/'20</th>
+						<th>Highest Price since 3/12/'20</th>
+						<th>Amazon Link</th>
+						<th>Flipkart Link</th>
+						<th>Stop tracking</th>
+					</tr>
+					</tbody>
+					<tbody>{this.state.li}</tbody>
+				</table>
+			</div>
 		);
 	}
 }

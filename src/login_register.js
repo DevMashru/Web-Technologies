@@ -65,6 +65,9 @@ class Register extends React.Component{
         let value = ev.target.value;
         this.setState({[field]: value});
     }
+    onClickHandler = (ev) => {
+        this.setState({next: 0})
+    }
     onSubmitHandler = (ev) => {
         ev.preventDefault();
         console.log("in register")
@@ -101,20 +104,25 @@ class Register extends React.Component{
     render(){
         if(this.state.next === 0){
             return(
-                <form onSubmit={this.onSubmitHandler}>
-                    <input type = "text" name = "username" onChange = {this.onChangeHandler} placeholder = "Enter your username" /><br/>
-                    <input type = "password" name = "password" onChange = {this.onChangeHandler} placeholder = "Enter your password" /><br/>
-                    <input type = "password" name = "confpassword" onChange = {this.onChangeHandler} placeholder = "Enter your password again" /><br/>
-                    <button type = "submit">Next</button>
-                </form>
+                <div>
+                    <form onSubmit={this.onSubmitHandler}>
+                        <input type = "text" name = "username" onChange = {this.onChangeHandler} placeholder = "Enter your username" value = {this.state.username}/><br/>
+                        <input type = "password" name = "password" onChange = {this.onChangeHandler} placeholder = "Enter your password" /><br/>
+                        <input type = "password" name = "confpassword" onChange = {this.onChangeHandler} placeholder = "Enter your password again" /><br/>
+                        <button type = "submit">Next</button>
+                    </form>
+                </div>
             );
         }
         else{
             return(
-                <form onSubmit={this.onSubmitHandler}>
-                    <input type = "email" onChange = {this.email} placeholder = "Enter email id (optional)"/>
-                    <button type = "submit">Submit</button>
-                </form>
+                <div>
+                    <form onSubmit={this.onSubmitHandler}>
+                        <input type = "email" onChange = {this.email} placeholder = "Enter email id (optional)" value = ""/><br/>
+                        <button type = "button" onClick = {this.onClickHandler}>Back</button>
+                        <button type = "submit">Submit</button>
+                    </form>
+                </div>
             )
         }
     }
@@ -134,7 +142,7 @@ class LoginRegister extends React.Component{
     }
     render(){
         return(
-            <div className = "App">
+            <div id = "login_register" className = "component">
                 <Router>
                     <Link to = "/login" id="login" className="link">Login</Link>
                     <Link to = "/register" id="register" className="link">Register</Link>

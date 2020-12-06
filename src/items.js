@@ -30,12 +30,12 @@ class Items extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div  id = "items" className = "component">
                 <h1>Items</h1>
                 <form onSubmit = {this.handleSubmit}>
-                    <input type="text" name="name" onChange = {this.handleChange} placeholder = "Enter the item name"></input><br/>
-                    <input type="text" name="alink" onChange = {this.handleChange} placeholder = "Enter the Amazon link"></input><br/>
-                    <input type="text" name="flink" onChange = {this.handleChange} placeholder = "Enter the Flipkart link"></input><br/>
+                    <input type="textarea" name="name" onChange = {this.handleChange} placeholder = "Enter the item name"></input><br/>
+                    <input type="textarea" name="alink" onChange = {this.handleChange} placeholder = "Enter the Amazon link"></input><br/>
+                    <input type="textarea" name="flink" onChange = {this.handleChange} placeholder = "Enter the Flipkart link"></input><br/>
                     <input type="number" name="minimum" onChange = {this.handleChange} placeholder = "Enter the minimum price to get notified"></input><br/>
                     <button type = "submit">Submit</button>
                 </form>

@@ -1,3 +1,47 @@
+#container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;  
+  background-color: black;
+}
+
+.component {
+  text-align: center;
+  background-color: white;
+}
+
+/* .headerlink {
+  margin: 10px;
+  padding: 10px;
+  font-size: x-large;
+  color: black
+} */
+
+.headerlink, #github {
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  display: inline-block;
+  font-size: large;
+}
+
+.headerlink, .link {
+  text-decoration: none;
+}
+
+.headerlink:hover, .headerlink:active {
+  background-color: white;
+  color: black;
+}
+
+.router{
+  text-align: right;
+  background-color: black;
+  padding-bottom: 0px;
+}
+
+#app {
+  background-color:black;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +54,75 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+table {
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  background-color: rgb(62, 172, 62);
+  color: white;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+td {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+tr:nth-child(even) {
+  background-color: gainsboro;
+}
+tr:hover {
+  background-color: rgb(197, 197, 197);
+}
+
+input {
+  margin: 2px
+}
+
+button {
+  margin: 2px
+}
+
+h1 {
+  padding: 10px;
+  margin-top: 0px;
+  padding-top: 21.44px;
+  padding-bottom: 0px;
+  background-color: white;
+  color: #17a589;
+}
+
+p {
+  text-align: center;
+  padding: 15px;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(88, 88, 88);
+  color: white
+}
+
+.link {
+  padding: 14px 25px;
+  text-align: center;
+  display: inline-block;
+  font-size: large;
+  color: black;
+  text-decoration: none;
+}
+
+.link:hover, .link:active {
+  background-color: rgb(218, 214, 214);
 }
