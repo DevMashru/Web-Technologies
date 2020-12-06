@@ -8,6 +8,12 @@ const router = express.Router()
 
 router.use(cookieParser())
 
+function getDB() {
+	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
+	const db = mongoose.connection;
+	return db;
+}
+
 function fill(d,res){
 	res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST');
 	return res.send(d);
@@ -15,8 +21,7 @@ function fill(d,res){
 
 router.post('/api/top', (req, res) => {
 	var d = []
-	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
-	const db = mongoose.connection;
+	const db = getDB();
 	var lowestprice, highestprice;
 	db.once('open', () => {
 		db.collection('userdata').findOne({username: req.cookies.uname}, (err,re) => {
@@ -64,8 +69,7 @@ router.post('/api/top', (req, res) => {
 });
 
 router.post('/api/add', (req, res) => {
-	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
-	const db = mongoose.connection;
+	const db = getDB();
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
@@ -106,8 +110,7 @@ router.options('/api/deleteItem', (req, res, next) => {
 });
 
 router.delete('/api/deleteItem', (req, res) => {
-	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
-	const db = mongoose.connection;
+	const db = getDB();
 	var body = []
 	req.on('data', function(chunk){
 		body.push(chunk)
