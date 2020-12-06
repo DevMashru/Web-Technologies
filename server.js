@@ -29,16 +29,16 @@ app.use(express.urlencoded({extended: false}))
 
 app.get('/getcookie', function(req, res){
 	if(req.cookies.uname){
-		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", req.cookies.uname, {httpOnly: false}).status(200).send(JSON.stringify({uname: req.cookies.uname}))
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", req.cookies.uname, {httpOnly: false}).status(200).send(JSON.stringify({uname: req.cookies.uname}))
 	}
 	else{
-		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(200).send(JSON.stringify({uname: "none"}))
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(200).send(JSON.stringify({uname: "none"}))
 	}
 	res.end();
 })
 
 app.get('/logout', function(req, res){
-	res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(200).send("logged out")
+	res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(200).send("logged out")
 	res.end()
 })
 
@@ -79,7 +79,7 @@ app.post('/register', function(req, res){
 										}
 										else{
 											msg = JSON.stringify({msg: 'registered'})
-											res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
+											res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
 											res.end()
 										}
 									})
@@ -88,7 +88,7 @@ app.post('/register', function(req, res){
 						}
 						else{
 							msg = JSON.stringify({msg: 'user exists'})
-							res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
+							res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
 							res.end()
 						}
 					}
@@ -122,19 +122,19 @@ app.post('/login', function(req, res){
 						var msg;
 						if(result == null){
 							msg = JSON.stringify({msg: 'username not found'})
-							res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
+							res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
 							res.end()
 						}
 						else{
 							bcrypt.compare(query.password, result.password, function(err, result){
 								if(result){
 									msg = JSON.stringify({msg: 'authenticate'})
-									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
+									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
 									res.end()
 								}
 								else{
 									msg = JSON.stringify({msg: 'wrong password'})
-									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
+									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
 									res.end()
 								}
 							})
@@ -154,7 +154,7 @@ app.options('/changepwd', function(req, res){
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
 		var query = qs.parse(body);
-		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'PUT').cookie("uname", query.username, {httpOnly: false}).status(200).send(JSON.stringify({msg: "send put request"}))
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'PUT').cookie("uname", query.username, {httpOnly: false}).status(200).send(JSON.stringify({msg: "send put request"}))
 		res.end()
 	})
 })
@@ -166,7 +166,7 @@ app.options('/delacc', function(req, res){
 	})
 	req.on('end', function(){
 		body = Buffer.concat(body).toString()
-		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", "none", {httpOnly: false}).status(200).send(JSON.stringify({msg: "send delete request"}))
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", "none", {httpOnly: false}).status(200).send(JSON.stringify({msg: "send delete request"}))
 		res.end()
 	})
 })
@@ -197,21 +197,21 @@ app.put('/changepwd', function(req, res){
 						bcrypt.compare(query.oldpassword, result.password, function(err, result){
 							if(!result){
 								msg = JSON.stringify({msg: 'incorrect existing password'})
-								res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'PUT').status(200).send(msg)
+								res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'PUT').status(200).send(msg)
 								res.end()
 							}
 							else{
 								bcrypt.hash(query.newpassword, 10, function(err, hash){
 									db.collection('userdata').updateOne({username: username}, {$set: {password: hash}}, function(err){
 										if(err){
-											res.writeHead(404, {'Content-type': 'text/plain', 'Access-Control-Allow-Origin': 'http://localhost:3000'})
+											res.writeHead(404, {'Content-type': 'text/plain', 'Access-Control-Allow-Origin': 'https://fgkekkthnxbai.hforms.me'})
 											msg = JSON.stringify({msg: 'update failed'})
 											res.send(msg)
 											res.end()
 										}
 										else{
 											msg = JSON.stringify({msg: 'password updated successfully'})                                
-											res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
+											res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
 											res.end()
 										}
 									})
@@ -248,7 +248,7 @@ app.delete('/delacc', function(req, res){
 					}
 					else{
 						var msg = JSON.stringify({msg: 'deleted'})
-						res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", "none", {httpOnly: false}).status(200).send(msg)
+						res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", "none", {httpOnly: false}).status(200).send(msg)
 						res.end()
 					}
 				})

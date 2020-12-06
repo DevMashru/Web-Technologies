@@ -17,7 +17,7 @@ class Login extends React.Component{
     onSubmitHandler = (ev) => {
         ev.preventDefault();
         var requery = "username=" + this.state.username + '&password=' + this.state.password
-        fetch("http://localhost:8080/login", {
+        fetch("https://apiforproj.hforms.me/login", {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
@@ -82,7 +82,7 @@ class Register extends React.Component{
             headers: headers,
             body: requery
         }
-        fetch("http://localhost:8080/register", options)
+        fetch("https://apiforproj.hforms.me/register", options)
             .then((response) => {
                 if(response.status === 200){
                     window.alert("Registered")

@@ -23,7 +23,7 @@ class App extends React.Component{
   }
   componentDidMount(){
 	console.log("ComponentDidMount called")
-	fetch("http://localhost:8080/getcookie", {
+	fetch("https://apiforproj.hforms.me/getcookie", {
 	  method: 'GET',
 	  mode: 'cors',
 	  credentials: 'include'
@@ -35,19 +35,19 @@ class App extends React.Component{
 	}
   handleLogout = () => {
 	console.log('handleLogout() called')
-	fetch("http://localhost:8080/logout", {
+	fetch("https://apiforproj.hforms.me/logout", {
 		method: 'GET',
 		mode: 'cors',
 		credentials: 'include'
 	})
 		.then((response) => {
 			this.setState({username: "none"})
-			window.location.href = "http://localhost:3000"
+			window.location.href = "https://fgkekkthnxbai.hforms.me"
 		})
   }
   handleLoginRegister = (username) =>{
 	this.setState({username: username})
-	window.location.href = "http://localhost:3000"
+	window.location.href = "https://fgkekkthnxbai.hforms.me"
   }
   render(){
 	if(this.state.username === "none"){

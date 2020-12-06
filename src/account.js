@@ -24,7 +24,7 @@ class ChangePwd extends React.Component{
             var c = window.confirm("Are you sure you want to change your password?");
             if(c){
                 var requery = 'username=' + this.props.username + '&oldpassword=' + this.state.oldpassword + '&newpassword=' + this.state.newpassword
-                fetch("http://localhost:8080/changepwd", {
+                fetch("https://apiforproj.hforms.me/changepwd", {
                     method: 'PUT',
                     mode: 'cors',
                     credentials: 'include',
@@ -58,14 +58,14 @@ class DeleteAccount extends React.Component{
         var c = window.confirm("Are you sure you want to delete your account?")
         if(c){
             var requery = 'username=' + this.props.username
-            fetch("http://localhost:8080/delacc", {
+            fetch("https://apiforproj.hforms.me/delacc", {
                 method: 'DELETE',
                 mode: 'cors',
                 credentials: 'include',
                 body: requery
             })
                 .then((response) => {
-                    window.location.href = "http://localhost:3000/"
+                    window.location.href = "https://fgkekkthnxbai.hforms.me/"
                 })
         }
     }

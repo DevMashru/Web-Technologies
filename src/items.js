@@ -18,7 +18,7 @@ class Items extends React.Component{
     handleSubmit = (ev) => {
         ev.preventDefault();
         var requery = 'name=' + this.state.name + '&alink=' + this.state.alink + '&flink=' + this.state.flink + '&minimum=' + this.state.minimum
-        fetch("http://localhost:8080/api/add", {
+        fetch("https://apiforproj.hforms.me/api/add", {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',

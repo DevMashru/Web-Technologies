@@ -2,7 +2,7 @@ import React from 'react'
 
 function Fetch(){
 	var d = []
-	return fetch('http://localhost:8080/api/top', {
+	return fetch('https://apiforproj.hforms.me/api/top', {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include'
@@ -18,7 +18,7 @@ class Top1 extends React.Component {
 	}
 	
 	deleteItem = (name) => {
-		return fetch('http://localhost:8080/api/deleteItem', {
+		return fetch('https://apiforproj.hforms.me/api/deleteItem', {
 		method: 'DELETE',
 		mode: 'cors',
 		credentials: 'include',

@@ -15,7 +15,7 @@ function getDB() {
 }
 
 function fill(d,res){
-	res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST');
+	res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST');
 	return res.send(d);
 }
 
@@ -96,7 +96,7 @@ router.post('/api/add', (req, res) => {
 						db.collection('top').insertOne({Name: query.name, Flipkart: {link: flipkart, price:[]}});
 					}
 				}
-				res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST');
+				res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'POST');
 				return res.send(200);
 			});
 		});
@@ -106,7 +106,7 @@ router.post('/api/add', (req, res) => {
 router.options('/api/deleteItem', (req, res, next) => {
 	req.on('data', () => {})
 	req.on('end', () => {
-		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", req.cookies.uname, {httpOnly: false})//.status(200).send(JSON.stringify({msg: "send delete request"}))
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'DELETE').cookie("uname", req.cookies.uname, {httpOnly: false})//.status(200).send(JSON.stringify({msg: "send delete request"}))
 		res.end()
 	})
 });
@@ -124,7 +124,7 @@ router.delete('/api/deleteItem', (req, res) => {
 		db.once('open' ,() => {
 			db.collection('userdata').updateOne({username: req.cookies.uname}, {$pull: { items: {name: body } }})
 		});
-		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'DELETE');
+		res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'https://fgkekkthnxbai.hforms.me').set('Access-Control-Allow-Methods', 'DELETE');
 		return res.send(200);
 	});
 });
