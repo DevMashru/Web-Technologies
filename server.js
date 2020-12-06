@@ -2,6 +2,7 @@ const express = require('express');
 var qs = require('qs');
 var MongoClient = require('mongodb').MongoClient
 var cookieParser = require('cookie-parser');
+var bcrypt = require('bcrypt')
 
 const app = express();
 
@@ -65,15 +66,23 @@ app.post('/register', function(req, res){
 					else{
 						var msg;
 						if(result == null){
-							db.collection('userdata').insertOne(query, function(err){
+							bcrypt.hash(query.password, 10, function(err, hash){
 								if(err){
 									console.log(err)
-									res.status(404).end()
+									res.status(404).send()
 								}
 								else{
-									msg = JSON.stringify({msg: 'registered'})
-									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
-									res.end()
+									db.collection('userdata').insertOne({username: query.username, password: hash, email: query.email}, function(err){
+										if(err){
+											console.log(err)
+											res.status(404).end()
+										}
+										else{
+											msg = JSON.stringify({msg: 'registered'})
+											res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
+											res.end()
+										}
+									})
 								}
 							})
 						}
@@ -117,16 +126,18 @@ app.post('/login', function(req, res){
 							res.end()
 						}
 						else{
-							if(query.password === result.password){
-								msg = JSON.stringify({msg: 'authenticate'})
-								res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
-								res.end()
-							}
-							else{
-								msg = JSON.stringify({msg: 'wrong password'})
-								res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
-								res.end()
-							}
+							bcrypt.compare(query.password, result.password, function(err, result){
+								if(result){
+									msg = JSON.stringify({msg: 'authenticate'})
+									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
+									res.end()
+								}
+								else{
+									msg = JSON.stringify({msg: 'wrong password'})
+									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", "none", {httpOnly: false}).status(404).send(msg)
+									res.end()
+								}
+							})
 						}
 					}
 				})
@@ -183,26 +194,31 @@ app.put('/changepwd', function(req, res){
 					}
 					else{
 						var msg;
-						if(result.password !== query.oldpassword){
-							msg = JSON.stringify({msg: 'incorrect existing password'})
-							res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'PUT').status(200).send(msg)
-							res.end()
-						}
-						else{
-							db.collection('userdata').updateOne({username: username}, {$set: {password: query.newpassword}}, function(err){
-								if(err){
-									res.writeHead(404, {'Content-type': 'text/plain', 'Access-Control-Allow-Origin': 'http://localhost:3000'})
-									msg = JSON.stringify({msg: 'update failed'})
-									res.send(msg)
-									res.end()
-								}
-								else{
-									msg = JSON.stringify({msg: 'password updated successfully'})                                
-									res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
-									res.end()
-								}
-							})
-						}
+						bcrypt.compare(query.oldpassword, result.password, function(err, result){
+							if(!result){
+								msg = JSON.stringify({msg: 'incorrect existing password'})
+								res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'PUT').status(200).send(msg)
+								res.end()
+							}
+							else{
+								bcrypt.hash(query.newpassword, 10, function(err, hash){
+									db.collection('userdata').updateOne({username: username}, {$set: {password: hash}}, function(err){
+										if(err){
+											res.writeHead(404, {'Content-type': 'text/plain', 'Access-Control-Allow-Origin': 'http://localhost:3000'})
+											msg = JSON.stringify({msg: 'update failed'})
+											res.send(msg)
+											res.end()
+										}
+										else{
+											msg = JSON.stringify({msg: 'password updated successfully'})                                
+											res.set('Access-Control-Allow-Credentials', 'true').set('Access-Control-Allow-Origin', 'http://localhost:3000').set('Access-Control-Allow-Methods', 'POST').cookie("uname", query.username, {httpOnly: false}).status(200).send(msg)
+											res.end()
+										}
+									})
+								})
+								
+							}
+						})
 					}
 				})
 			}
