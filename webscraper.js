@@ -3,8 +3,6 @@ const request = require('request');
 
 const mongoose = require('mongoose');
 
-const Email = require('./email');
-
 function getDB(){
 	mongoose.connect('mongodb://localhost:27017/project', {useNewUrlParser: true, useUnifiedTopology: true });
 	const db = mongoose.connection;
@@ -25,7 +23,6 @@ function top() {
 					flipkart(obj.Flipkart);
 				}
 			});
-			Email();
 		});
 	})
 }
