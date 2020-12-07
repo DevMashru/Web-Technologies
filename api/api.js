@@ -36,29 +36,69 @@ router.post('/api/top', (req, res) => {
 								r.forEach(obj => {
 									if(item.name === obj.Name){
 										if (obj.Amazon && obj.Flipkart) {
-											if(obj.Amazon.lowestprice < obj.Flipkart.lowestprice){
-												lowestprice = obj.Amazon.lowestprice;
+											if(0 in obj.Amazon.price){
+												aprice = obj.Amazon.price.slice(-1)[0].price;
+												alowest = obj.Amazon.lowestprice;
+												ahighest = obj.Amazon.highestprice;
 											}
 											else{
-												lowestprice = obj.Flipkart.lowestprice;
+												aprice = 'N/A'
+												alowest = 'N/A'
+												ahighest = 'N/A'
 											}
-											if(obj.Amazon.highestprice > obj.Flipkart.highestprice){
-												highestprice = obj.Amazon.highestprice;
+											if(0 in obj.Flipkart.price){
+												fprice = obj.Flipkart.price.slice(-1)[0].price;
+												flowest = obj.Flipkart.lowestprice;
+												fhighest = obj.Flipkart.highestprice;
 											}
 											else{
-												highestprice = obj.Flipkart.highestprice;
+												fprice = 'N/A'
+												flowest = 'N/A'
+												fhighest = 'N/A'
 											}
-											d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: obj.Amazon.price.slice(-1)[0].price, lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link, Alink: obj.Amazon.link})
+											if(alowest < flowest){
+												lowestprice = alowest;
+											}
+											else{
+												lowestprice = flowest;
+											}
+											if(ahighest > fhighest){
+												highestprice = ahighest;
+											}
+											else{
+												highestprice = fhighest;
+											}
+											d.push({name: obj.Name, Fprice: fprice, Aprice: aprice, lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link, Alink: obj.Amazon.link})
 										}
 										else if (obj.Amazon) {
+											if(0 in obj.Amazon.price){
+												aprice = obj.Amazon.price.slice(-1)[0].price;
+												alowest = obj.Amazon.lowestprice;
+												ahighest = obj.Amazon.highestprice;
+											}
+											else{
+												aprice = 'N/A'
+												alowest = 'N/A'
+												ahighest = 'N/A'
+											}
 												lowestprice = obj.Amazon.lowestprice;
 												highestprice = obj.Amazon.highestprice;
-												d.push({name: obj.Name, Fprice: 'N/A', Aprice: obj.Amazon.price.slice(-1)[0].price, lowestprice: lowestprice, highestprice: highestprice, Alink: obj.Amazon.link})
+												d.push({name: obj.Name, Fprice: 'N/A', Aprice: aprice, lowestprice: lowestprice, highestprice: highestprice, Alink: obj.Amazon.link})
 										}
 										else if (obj.Flipkart) {
+											if(0 in obj.Flipkart.price){
+												fprice = obj.Flipkart.price.slice(-1)[0].price;
+												flowest = obj.Flipkart.lowestprice;
+												fhighest = obj.Flipkart.highestprice;
+											}
+											else{
+												fprice = 'N/A'
+												flowest = 'N/A'
+												fhighest = 'N/A'
+											}
 											lowestprice = obj.Flipkart.lowestprice;
 											highestprice = obj.Flipkart.highestprice;
-											d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: 'N/A', lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link})
+											d.push({name: obj.Name, Fprice: fprice, Aprice: 'N/A', lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link})
 										}
 										if (d.length === user.items.length) {
 											fill(d,res)
