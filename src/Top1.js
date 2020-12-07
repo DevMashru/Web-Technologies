@@ -14,6 +14,7 @@ class Top1 extends React.Component {
 		this.state = {
 			d : [],
 			li: [],
+			username: ""
 		};
 	}
 	
@@ -27,6 +28,15 @@ class Top1 extends React.Component {
 	}
 
 	componentDidMount(){
+		fetch("https://apiforproj.hforms.me/getcookie", {
+		  method: 'GET',
+		  mode: 'cors',
+		  credentials: 'include'
+		})
+		.then((response) => response.json())
+			.then((data) => {
+				this.setState({username: data.uname})
+		})
 		Fetch()
 		.then((d) => {
 			this.setState({ d:d })
@@ -43,6 +53,20 @@ class Top1 extends React.Component {
 				Flink[i] = this.state.d[i].Flink;
 			}
 			if(Alink[i] && Flink[i]){
+				if(this.state.username === "none"){
+					return(
+						<tr key = {i}>
+							<td>{name[i]}</td>
+							<td>{Aprice[i]}</td>
+							<td>{Fprice[i]}</td>
+							<td>{lowestprice[i]}</td>
+							<td>{highestprice[i]}</td>
+							<td><a target = '_blank' href = {Alink[i]}>link</a></td>
+							<td><a target = '_blank' href = {Flink[i]}>link</a></td>
+							<td>N/A</td>
+						</tr>
+					)
+				}
 				return(
 					<tr key = {i}>
 						<td>{name[i]}</td>
@@ -57,6 +81,20 @@ class Top1 extends React.Component {
 				);
 			}
 			else if(Alink[i]){
+				if(this.state.username === "none"){
+					return(
+						<tr key = {i}>
+							<td>{name[i]}</td>
+							<td>{Aprice[i]}</td>
+							<td>{Fprice[i]}</td>
+							<td>{lowestprice[i]}</td>
+							<td>{highestprice[i]}</td>
+							<td><a target = '_blank' href = {Alink[i]}>link</a></td>
+							<td>N/A</td>
+							<td>N/A</td>
+						</tr>
+					)
+				}
 				return(
 					<tr key = {i}>
 						<td>{name[i]}</td>
@@ -71,6 +109,20 @@ class Top1 extends React.Component {
 				);
 			}
 			else if(Flink[i]){
+				if(this.state.username === "none"){
+					return(
+						<tr key = {i}>
+							<td>{name[i]}</td>
+							<td>{Aprice[i]}</td>
+							<td>{Fprice[i]}</td>
+							<td>{lowestprice[i]}</td>
+							<td>{highestprice[i]}</td>
+							<td>N/A</td>
+							<td><a target = '_blank' href = {Flink[i]}>link</a></td>
+							<td>N/A</td>
+						</tr>
+					)
+				}
 				return(
 					<tr key = {i}>
 						<td>{name[i]}</td>
