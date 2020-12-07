@@ -73,11 +73,9 @@ class App extends React.Component{
 		<div id = "app">
 			<Router className = "router">
 				<Link to = "/" id="home" className="headerlink" onClick = {this.handleNavClick}>Home</Link>
-				<Link to = "/about_us" id="about_us" className="headerlink" onClick = {this.handleNavClick}>About Us</Link>
 				<Link to = "/items" id="items" className="headerlink" onClick = {this.handleNavClick}>Search/View Items</Link>
 				<Link to = "/account" id="account" className="headerlink" onClick = {this.handleNavClick}>Account</Link>
 				<Route exact path = "/" component = {Home}></Route>
-				<Route exact path = "/about_us" component = {AboutUs}></Route>
 				<Route exact path = "/items" component = {Items}></Route>
 				<Route exact path = "/account" component = {() => { return <Account username = {this.state.username} onLogout = {this.handleLogout}/>}}></Route>
 				<Route exact path = "/log" component = {NotFound}></Route>
