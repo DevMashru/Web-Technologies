@@ -76,7 +76,7 @@ class Top1 extends React.Component {
 						<td>{highestprice[i]}</td>
 						<td><a target = '_blank' href = {Alink[i]}>link</a></td>
 						<td><a target = '_blank' href = {Flink[i]}>link</a></td>
-						<td onClick = {() => {this.deleteItem(name[i])}}><a href='#'>Stop tracking</a></td>
+						<td onClick = {() => {this.deleteItem(name[i])}}><a href='https://fgkekkthnxbai.hforms.me'>Stop tracking</a></td>
 					</tr>
 				);
 			}
@@ -104,7 +104,7 @@ class Top1 extends React.Component {
 						<td>{highestprice[i]}</td>
 						<td><a target = '_blank' href = {Alink[i]}>link</a></td>
 						<td>N/A</td>
-						<td onClick = {() => {this.deleteItem(name[i])}}><a href='#'>Stop tracking</a></td>
+						<td onClick = {() => {this.deleteItem(name[i])}}><a href='https://fgkekkthnxbai.hforms.me'>Stop tracking</a></td>
 					</tr>
 				);
 			}
@@ -132,7 +132,7 @@ class Top1 extends React.Component {
 						<td>{highestprice[i]}</td>
 						<td>N/A</td>
 						<td><a target = '_blank' href = {Flink[i]}>link</a></td>
-						<td onClick = {() => {this.deleteItem(name[i])}}><a href='#'>Stop tracking</a></td>
+						<td onClick = {() => {this.deleteItem(name[i])}}><a href='https://fgkekkthnxbai.hforms.me'>Stop tracking</a></td>
 					</tr>
 				);
 			}
