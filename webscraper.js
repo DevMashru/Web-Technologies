@@ -35,6 +35,9 @@ function amazon(Amazon){
 		if (!price) {
 			price = $('#priceblock_ourprice').text();
 		}
+		if(!price){
+			price = 'N/A';
+		}
 		var strippedPrice = price.replace('₹', '').replaceAll(',', '');
 		insert("Amazon", strippedPrice, Amazon.link);
 		if(!Amazon.highestprice){
@@ -55,6 +58,9 @@ function flipkart(Flipkart){
 		if(err) throw err;
 		const $ = cheerio.load(body);
 		var price = $('div._30jeq3._16Jk6d').text();
+		if(!price){
+			price = 'N/A';
+		}
 		var strippedPrice = price.replace('₹', '').replaceAll(',', '');
 		insert("Flipkart", strippedPrice, Flipkart.link);
 		if(!Flipkart.highestprice){
