@@ -25,13 +25,13 @@ router.post('/api/top', (req, res) => {
 	const db = getDB();
 	var lowestprice, highestprice;
 	db.once('open', () => {
-		db.collection('userdata').findOne({username: req.cookies.uname}, (err,re) => {
+		db.collection('userdata').findOne({username: req.cookies.uname}, (err,user) => {
 			if(err) throw err;
 			db.collection('top').find({}).toArray((err,r) => {
 				if(err) throw err;
-				if(re){
-					if(re.items){
-						re.items.forEach(item => {
+				if(user){
+					if(user.items){
+						user.items.forEach(item => {
 							if(r){
 								r.forEach(obj => {
 									if(item.name === obj.Name){
@@ -60,7 +60,7 @@ router.post('/api/top', (req, res) => {
 											highestprice = obj.Flipkart.highestprice;
 											d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: 'N/A', lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link})
 										}
-										if (d.length === re.items.length) {
+										if (d.length === user.items.length) {
 											fill(d,res)
 											mongoose.disconnect();
 										}
