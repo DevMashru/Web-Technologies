@@ -29,41 +29,47 @@ router.post('/api/top', (req, res) => {
 			if(err) throw err;
 			db.collection('top').find({}).toArray((err,r) => {
 				if(err) throw err;
-				re.items.forEach(item => {
-					r.forEach(obj => {
-						if(item.name === obj.Name){
-							if (obj.Amazon && obj.Flipkart) {
-								if(obj.Amazon.lowestprice < obj.Flipkart.lowestprice){
-									lowestprice = obj.Amazon.lowestprice;
-								}
-								else{
-									lowestprice = obj.Flipkart.lowestprice;
-								}
-								if(obj.Amazon.highestprice > obj.Flipkart.highestprice){
-									highestprice = obj.Amazon.highestprice;
-								}
-								else{
-									highestprice = obj.Flipkart.highestprice;
-								}
-								d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: obj.Amazon.price.slice(-1)[0].price, lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link, Alink: obj.Amazon.link})
+				if(re){
+					if(re.items){
+						re.items.forEach(item => {
+							if(r){
+								r.forEach(obj => {
+									if(item.name === obj.Name){
+										if (obj.Amazon && obj.Flipkart) {
+											if(obj.Amazon.lowestprice < obj.Flipkart.lowestprice){
+												lowestprice = obj.Amazon.lowestprice;
+											}
+											else{
+												lowestprice = obj.Flipkart.lowestprice;
+											}
+											if(obj.Amazon.highestprice > obj.Flipkart.highestprice){
+												highestprice = obj.Amazon.highestprice;
+											}
+											else{
+												highestprice = obj.Flipkart.highestprice;
+											}
+											d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: obj.Amazon.price.slice(-1)[0].price, lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link, Alink: obj.Amazon.link})
+										}
+										else if (obj.Amazon) {
+												lowestprice = obj.Amazon.lowestprice;
+												highestprice = obj.Amazon.highestprice;
+												d.push({name: obj.Name, Fprice: 'N/A', Aprice: obj.Amazon.price.slice(-1)[0].price, lowestprice: lowestprice, highestprice: highestprice, Alink: obj.Amazon.link})
+										}
+										else if (obj.Flipkart) {
+											lowestprice = obj.Flipkart.lowestprice;
+											highestprice = obj.Flipkart.highestprice;
+											d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: 'N/A', lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link})
+										}
+										if (d.length === re.items.length) {
+											fill(d,res)
+											mongoose.disconnect();
+										}
+									}
+								});
 							}
-							else if (obj.Amazon) {
-									lowestprice = obj.Amazon.lowestprice;
-									highestprice = obj.Amazon.highestprice;
-									d.push({name: obj.Name, Fprice: 'N/A', Aprice: obj.Amazon.price.slice(-1)[0].price, lowestprice: lowestprice, highestprice: highestprice, Alink: obj.Amazon.link})
-							}
-							else if (obj.Flipkart) {
-								lowestprice = obj.Flipkart.lowestprice;
-								highestprice = obj.Flipkart.highestprice;
-								d.push({name: obj.Name, Fprice: obj.Flipkart.price.slice(-1)[0].price, Aprice: 'N/A', lowestprice: lowestprice, highestprice: highestprice, Flink: obj.Flipkart.link})
-							}
-							if (d.length === re.items.length) {
-								fill(d,res)
-								mongoose.disconnect();
-							}
-						}
-					});
-				});
+						});
+					}
+				}
 			});
 		});
 	});
