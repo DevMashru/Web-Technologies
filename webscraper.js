@@ -38,7 +38,7 @@ function amazon(Amazon){
 		if(!price){
 			price = 'N/A';
 		}
-		var strippedPrice = price.replace('₹', '').replaceAll(',', '');
+		var strippedPrice = price.replace('₹', '').replace(',', '').replace(',', '');
 		insert("Amazon", strippedPrice, Amazon.link);
 		if(!Amazon.highestprice){
 			highest("Amazon", strippedPrice, Amazon.link)
@@ -61,7 +61,7 @@ function flipkart(Flipkart){
 		if(!price){
 			price = 'N/A';
 		}
-		var strippedPrice = price.replace('₹', '').replaceAll(',', '');
+		var strippedPrice = price.replace('₹', '').replace(',', '').replace(',', '');
 		insert("Flipkart", strippedPrice, Flipkart.link);
 		if(!Flipkart.highestprice){
 			highest("Flipkart", strippedPrice, Flipkart.link)
