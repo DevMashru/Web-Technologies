@@ -112,7 +112,7 @@ class Register extends React.Component{
             return(
                 <div>
                     <form onSubmit={this.onSubmitHandler}>
-                        <input type = "email" onChange = {this.email} placeholder = "Enter email id (optional)" value = ""/><br/>
+                        <input type = "email" onChange = {this.email} placeholder = "Enter email id (optional)" value = {this.state.email}/><br/>
                         <button type = "button" onClick = {this.onClickHandler}>Back</button>
                         <button type = "submit">Submit</button>
                     </form>
