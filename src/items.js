@@ -26,6 +26,7 @@ class Items extends React.Component{
         })
             .then((response) => {
                 window.alert("Item added")
+                window.location.href = "https://fgkekkthnxbai.hforms.me"
             })
     }
     render(){
