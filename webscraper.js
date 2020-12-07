@@ -40,7 +40,7 @@ function amazon(Amazon){
 		}
 		var strippedPrice = price.replace('₹', '').replace(',', '').replace(',', '');
 		insert("Amazon", strippedPrice, Amazon.link);
-		if(!Amazon.highestprice){
+		if('highestprice' in Amazon){
 			highest("Amazon", strippedPrice, Amazon.link)
 			lowest("Amazon", strippedPrice, Amazon.link);
 		}
@@ -63,7 +63,7 @@ function flipkart(Flipkart){
 		}
 		var strippedPrice = price.replace('₹', '').replace(',', '').replace(',', '');
 		insert("Flipkart", strippedPrice, Flipkart.link);
-		if(!Flipkart.highestprice){
+		if('highestprice' in Flipkart){
 			highest("Flipkart", strippedPrice, Flipkart.link)
 			lowest("Flipkart", strippedPrice, Flipkart.link);
 		}
