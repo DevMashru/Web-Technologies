@@ -74,4 +74,4 @@ function Email(){
 	});
 }
 
-module.exports = Email;
+setInterval(Email,3600000);
