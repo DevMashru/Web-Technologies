@@ -31,7 +31,6 @@ class ChangePwd extends React.Component{
                     body: requery
                 })
                     .then((response) => {
-                        console.log(response.body)
                         window.location.href = "https://fgkekkthnxbai.hforms.me"
             })
             }
@@ -41,9 +40,9 @@ class ChangePwd extends React.Component{
         return(
             <div id = "changepwd" className = "component">
                 <form>
-                    <input type="password" name="oldpassword" onChange = {this.changeHandler} placeholder = "Enter your existing password" /><br/>
-                    <input type="password" name="newpassword" onChange = {this.changeHandler} placeholder = "Enter your new password" /><br/>
-                    <input type="password" name="confnewpassword" onChange = {this.changeHandler} placeholder = "Enter your new password again" /><br/>
+                    <input type="password" name="oldpassword" onChange = {this.changeHandler} placeholder = "Enter your existing password" required/><br/>
+                    <input type="password" name="newpassword" onChange = {this.changeHandler} placeholder = "Enter your new password" required/><br/>
+                    <input type="password" name="confnewpassword" onChange = {this.changeHandler} placeholder = "Enter your new password again" required/><br/>
                     <button type="submit" onClick = {this.submitHandler}>Submit</button>
                 </form>
             </div>

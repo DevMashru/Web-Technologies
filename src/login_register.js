@@ -39,8 +39,8 @@ class Login extends React.Component{
         return(
             <div>
                 <form onSubmit={this.onSubmitHandler}>
-                    <input type = "text" name = "username" onChange = {this.onChangeHandler} placeholder = "Enter your username" /><br/>
-                    <input type = "password" name = "password" onChange = {this.onChangeHandler} placeholder = "Enter your password" /><br/>
+                    <input type = "text" name = "username" onChange = {this.onChangeHandler} placeholder = "Enter your username" required/><br/>
+                    <input type = "password" name = "password" onChange = {this.onChangeHandler} placeholder = "Enter your password" required/><br/>
                     <button type = "submit">Submit</button>
                 </form>
             </div>
@@ -73,13 +73,10 @@ class Register extends React.Component{
             return;
         }
         var requery = 'username=' + this.state.username + '&password=' + this.state.password + '&email=' + this.state.email
-        var headers = new Headers()
-        headers.set('Content-type', 'text/plain')
         var options = {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
-            headers: headers,
             body: requery
         }
         fetch("https://apiforproj.hforms.me/register", options)
@@ -100,9 +97,9 @@ class Register extends React.Component{
             return(
                 <div>
                     <form onSubmit={this.onSubmitHandler}>
-                        <input type = "text" name = "username" onChange = {this.onChangeHandler} placeholder = "Enter your username" value = {this.state.username}/><br/>
-                        <input type = "password" name = "password" onChange = {this.onChangeHandler} placeholder = "Enter your password" /><br/>
-                        <input type = "password" name = "confpassword" onChange = {this.onChangeHandler} placeholder = "Enter your password again" /><br/>
+                        <input type = "text" name = "username" onChange = {this.onChangeHandler} placeholder = "Enter your username" value = {this.state.username} required/><br/>
+                        <input type = "password" name = "password" onChange = {this.onChangeHandler} placeholder = "Enter your password" required/><br/>
+                        <input type = "password" name = "confpassword" onChange = {this.onChangeHandler} placeholder = "Enter your password again" required/><br/>
                         <button type = "submit">Next</button>
                     </form>
                 </div>
@@ -140,8 +137,6 @@ class LoginRegister extends React.Component{
                     <Link to = "/register" id="register" className="link">Register</Link>
                     <Route exact path = "/login" component = {() => { return <Login onLogin = {this.handleLogin} /> }}></Route>
                     <Route exact path = "/register" component = {() => { return <Register onRegister = {this.handleRegister} /> }}></Route>
-                    {/* <Route exact path = "/login" component = {Login}></Route>
-                    <Route exact path = "/register" component = {Register}></Route> */}
                 </Router>
             </div>
         )

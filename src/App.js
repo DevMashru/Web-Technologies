@@ -22,7 +22,6 @@ class App extends React.Component{
 	}
   }
   componentDidMount(){
-	console.log("ComponentDidMount called")
 	fetch("https://apiforproj.hforms.me/getcookie", {
 	  method: 'GET',
 	  mode: 'cors',
@@ -34,7 +33,6 @@ class App extends React.Component{
 			})
 	}
   handleLogout = () => {
-	console.log('handleLogout() called')
 	fetch("https://apiforproj.hforms.me/logout", {
 		method: 'GET',
 		mode: 'cors',
