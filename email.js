@@ -7,7 +7,7 @@ function sendEmail(store, email, name, price){
 		service: 'gmail', 
 		auth: { 
 			user: 'pricetracker.pes@gmail.com', 
-			pass: 'pricetracker'
+			pass: '********'	//replace with real password
 		} 
 	});
 
